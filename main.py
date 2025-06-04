@@ -75,4 +75,22 @@ class Zoo:
         for staff in self.staff:
             print(f"- {staff.name}")
 
+if __name__ == "__main__":
+
+    parrot = Bird("Попугай", 3, "Красный")
+    tiger = Mammal("Тигр", 5, "Оранжевый̆")
+    snake = Reptile("Змея", 2, True)
+
+    animals = [parrot, tiger, snake]
+    animal_sound(animals)
+
+    keeper = Zookeeper("Владимир")
+    vet = Veterinarian("Ольга")
+
+    zoo = Zoo("Солнечный остров")
+    zoo.add_animal(parrot)
+    zoo.add_animal(tiger)
+    zoo.add_animal(snake)
+
+
 
