@@ -68,7 +68,14 @@ class Zoo:
     def list_animals(self):
         print(f"Животные в зоопарке {self.name}:")
         for animal in self.animals:
-            print(f"- {animal.name}, возраст: {animal.age}")
+            info = f"- {animal.name} ({animal.age} лет)"
+            if isinstance(animal, Bird):
+                info += f", цвет: {animal.color}"
+            elif isinstance(animal, Mammal):
+                info += f", цвет шерсти: {animal.fur_color}"
+            elif isinstance(animal, Reptile):
+                info += f", является ядовитым: {animal.is_venomous}"
+            print(info)
 
     def list_staff(self):
         print(f"Сотрудники в зоопарке {self.name}:")
@@ -91,6 +98,13 @@ if __name__ == "__main__":
     zoo.add_animal(parrot)
     zoo.add_animal(tiger)
     zoo.add_animal(snake)
+
+    zoo.add_staff(keeper)
+    zoo.add_staff(vet)
+
+    zoo.list_animals()
+    zoo.list_staff()
+
 
 
 
