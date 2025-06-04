@@ -1,3 +1,5 @@
+import json
+
 class  Animal:
     def __init__(self, name, age):
         self.name = name
@@ -8,6 +10,17 @@ class  Animal:
 
     def eat(self):
         print(f"{self.name} ест")
+
+    def to_dict(self):
+        return {
+            "type": self.__class__.__name__,
+            "name": self.name,
+            "age": self.age,
+            **(
+                {"color": self.color} if hasattr(self, "color") else
+                {"fur_color": self.fur_color} if hasattr(self, "fur_color") else
+                {"is_venomous": self.is_venomous})}
+
 
 class Bird(Animal):
     def __init__(self, name, age, color):
@@ -44,12 +57,18 @@ class Zookeeper:
     def feed_animals(self, animal):
         print(f"{self.name} кормит {animal.name}")
 
+    def to_dict(self):
+        return {"type": "Zookeeper", "name":self.name}
+
 class Veterinarian:
     def __init__(self, name):
         self.name = name
 
     def heal_animals(self, animal):
         print(f"{self.name} лечит {animal.name}")
+
+    def to_dict(self):
+        return {"type": "Veterinarian", "name":self.name}
 
 class Zoo:
     def __init__(self, name):
