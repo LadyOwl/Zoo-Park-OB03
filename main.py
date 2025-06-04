@@ -25,3 +25,11 @@ class Mammal(Animal):
     def make_sound(self):
         print(f"{self.name} рычит")
 
+class Reptile(Animal):
+    def __init__(self, name, age, is_venomous):
+        super().__init__(name, age)
+        self.is_venomous = is_venomous
+
+    def make_sound(self):
+        print(f"{self.name} шипит")
+
