@@ -101,7 +101,53 @@ class Zoo:
         for staff in self.staff:
             print(f"- {staff.name}")
 
+    def save_to_file(self, filename="zoo_data.json"):
+        data = {
+            "zoo_name": self.name,
+            "animals": [animal.to_dict() for animal in self.animals],
+            "staff": [person.to_dict() for person in self.staff]
+        }
+        with open(filename, "w", encoding="utf-8") as file:
+            json.dump(data, file, ensure_ascii=False, indent=4)
+        print(f"Данные зоопарка сохранены в {filename}")
+
+    @classmethod
+    def load_from_file(cls, filename="zoo_data.json"):
+        try:
+            with open(filename, "r", encoding="utf-8") as file:
+                data = json.load(file)
+
+            zoo = cls(data["zoo_name"])
+
+            for animal_data in data["animals"]:
+                animal_type = animal_data["type"]
+                if animal_type == "Bird":
+                    animal = Bird(animal_data["name"], animal_data["age"], animal_data["color"])
+                elif animal_type == "Mammal":
+                    animal = Mammal(animal_data["name"], animal_data["age"], animal_data["fur_color"])
+                elif animal_type == "Reptile":
+                    animal = Reptile(animal_data["name"], animal_data["age"], animal_data["is_venomous"])
+                zoo.animals.append(animal)
+
+            for staff_data in data["staff"]:
+                staff_type = staff_data["type"]
+                if staff_type == "Zookeeper":
+                    staff = Zookeeper(staff_data["name"])
+                elif staff_type == "Veterinarian":
+                    staff = Veterinarian(staff_data["name"])
+                zoo.staff.append(staff)
+
+            print(f"Зоопарк '{zoo.name}' успешно загружен из {filename}!")
+            return zoo
+        except FileNotFoundError:
+            print(f"Файл {filename} не найден. Создан новый зоопарк.")
+            return cls("Новый зоопарк")
+        except json.JSONDecodeError:
+            print(f"Ошибка чтения {filename}. Создан новый зоопарк.")
+            return cls("Новый зоопарк")
+
 if __name__ == "__main__":
+    zoo = Zoo("Солнечный остров")
 
     parrot = Bird("Попугай", 3, "Красный")
     tiger = Mammal("Тигр", 5, "Оранжевый̆")
@@ -113,7 +159,6 @@ if __name__ == "__main__":
     keeper = Zookeeper("Владимир")
     vet = Veterinarian("Ольга")
 
-    zoo = Zoo("Солнечный остров")
     zoo.add_animal(parrot)
     zoo.add_animal(tiger)
     zoo.add_animal(snake)
@@ -121,6 +166,11 @@ if __name__ == "__main__":
     zoo.add_staff(keeper)
     zoo.add_staff(vet)
 
+    zoo.list_animals()
+    zoo.list_staff()
+
+    zoo.save_to_file("zoo_data.json")
+    zoo = Zoo.load_from_file("zoo_data.json")
     zoo.list_animals()
     zoo.list_staff()
 

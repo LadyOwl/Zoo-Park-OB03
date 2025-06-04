@@ -1,0 +1,33 @@
+{
+    "zoo_name": "Солнечный остров",
+    "animals": [
+        {
+            "type": "Bird",
+            "name": "Попугай",
+            "age": 3,
+            "color": "Красный"
+        },
+        {
+            "type": "Mammal",
+            "name": "Тигр",
+            "age": 5,
+            "fur_color": "Оранжевый̆"
+        },
+        {
+            "type": "Reptile",
+            "name": "Змея",
+            "age": 2,
+            "is_venomous": true
+        }
+    ],
+    "staff": [
+        {
+            "type": "Zookeeper",
+            "name": "Владимир"
+        },
+        {
+            "type": "Veterinarian",
+            "name": "Ольга"
+        }
+    ]
+}
